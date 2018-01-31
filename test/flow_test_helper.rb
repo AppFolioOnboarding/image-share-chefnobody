@@ -9,7 +9,8 @@ require 'ae_page_objects/rails'
 module PageObjects
 end
 
-Dir[File.dirname(__FILE__) + '/page_objects/**/*.rb'].each { |file| require file }
+require 'page_objects/document.rb'
+Dir[File.dirname(__FILE__) + '/page_objects/*/*.rb'].each { |file| require file }
 
 class FlowTestCase < ActiveSupport::TestCase
   include Capybara::DSL
