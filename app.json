@@ -1,0 +1,34 @@
+{
+  "name": "ropes",
+  "scripts": {
+    "postdeploy": "rails db:schema:load db:seed"
+  },
+  "env": {
+    "LANG": {
+      "required": false
+    },
+    "RACK_ENV": {
+      "required": false
+    },
+    "RAILS_ENV": {
+      "required": false
+    },
+    "RAILS_SERVE_STATIC_FILES": {
+      "required": false
+    },
+    "SECRET_KEY_BASE": {
+      "generator": "secret"
+    }
+  },
+  "addons": [
+    "heroku-postgresql:hobby-dev"
+  ],
+  "buildpacks": [
+    {
+      "url": "urn:buildpack:heroku/nodejs"
+    },
+    {
+      "url": "urn:buildpack:heroku/ruby"
+    }
+  ]
+}
