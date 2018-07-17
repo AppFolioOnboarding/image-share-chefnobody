@@ -29,6 +29,16 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference 'Image.count' do
       post images_path, params: params
     end
+
+    assert_redirected_to image_path(Image.last)
   end
 
+  test 'should show image' do
+    last_image = Image.last
+    get image_path(last_image)
+    assert_response :ok
+    assert_select 'img' do
+      assert_select '[src=?]', last_image.url
+    end
+  end
 end
