@@ -18,6 +18,7 @@ gem 'jquery-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'simple_form'
+gem "validate_url"
 
 gem 'webpacker', '~> 3.0'
 
