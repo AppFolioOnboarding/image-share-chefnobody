@@ -42,15 +42,16 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       post images_path, params: params
     end
 
-    assert_select 'div[class=?]', 'invalid-feedback', text: "Url can't be blank"
+    assert_select 'div[class=?]', 'invalid-feedback', text: "Url can't be blank and Url is not a valid URL"
   end
 
   test 'should show image' do
-    last_image = Image.last
-    get image_path(last_image)
+    image = Image.new(url: 'http://www.gooffroadingwithpizza.com')
+    image.save
+    get image_path(image)
     assert_response :ok
     assert_select 'img' do
-      assert_select '[src=?]', last_image.url
+      assert_select '[src=?]', image.url
     end
   end
 end
