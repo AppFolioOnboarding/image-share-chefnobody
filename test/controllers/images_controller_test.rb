@@ -33,6 +33,18 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to image_path(Image.last)
   end
 
+  test 'should not create new with invalid data' do
+    params = {
+      image: { url: nil }
+    }
+
+    assert_no_difference 'Image.count' do
+      post images_path, params: params
+    end
+
+    assert_select 'div[class=?]', 'invalid-feedback', text: "Url can't be blank"
+  end
+
   test 'should show image' do
     last_image = Image.last
     get image_path(last_image)

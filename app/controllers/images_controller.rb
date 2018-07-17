@@ -15,6 +15,8 @@ class ImagesController < ApplicationController
     if @image.save
       # success redirect
       redirect_to image_path(@image)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
