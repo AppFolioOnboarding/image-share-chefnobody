@@ -5,13 +5,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     @image = Image.create(url: 'test.com')
   end
 
-  test "should get index" do
-    get images_url
+  test 'should get index' do
+    get images_path
     assert_response :success
-  end
-
-  test "should get new" do
-    get new_image_url
-    assert_response :success
+    assert_select 'a[href=?]', new_image_path, text: 'New Image'
   end
 end
