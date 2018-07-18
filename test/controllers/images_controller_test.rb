@@ -6,8 +6,23 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should get index' do
+    urls = [
+      'http://www.pizza.com/image1.jpg',
+      'http://www.pizza.com/image2.jpg',
+      'http://www.pizza.com/image3.jpg',
+      'http://www.pizza.com/image4.jpg'
+    ]
+
+    urls.each { |url| Image.create!(url: url) }
+
     get images_path
+
     assert_response :success
+
+    assert_select 'div img' do |images|
+      assert_equal images.map { |i| i[:src] }, urls.reverse
+    end
+
     assert_select 'a[href=?]', new_image_path, text: 'New Image'
   end
 
