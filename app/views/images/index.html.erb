@@ -5,8 +5,7 @@
 
 <% @images.each do |i| %>
     <div>
-        <img src="<%= i.url %>" />
-        <p class="js-image-tags"><b>Tags:</b> <%= i.tag_list.join(', ') %></p>
+        <%= render partial: "image_card", locals: { image: i } %>
     </div>
 <% end %>
 

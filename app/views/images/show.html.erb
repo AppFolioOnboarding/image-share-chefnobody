@@ -1,3 +1,2 @@
 <h1>Here is your image:</h1>
-<img src="<%= @image.url %>" />
-<p class="js-image-tags"><b>Tags:</b> <%= @image.tag_list.join(', ') %></p>
+<%= render partial: "image_card", locals: { image: @image } %>
