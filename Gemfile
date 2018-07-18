@@ -18,7 +18,8 @@ gem 'jquery-rails'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'simple_form'
-gem "validate_url"
+gem 'validate_url'
+gem 'acts-as-taggable-on', '~> 6.0'
 
 gem 'webpacker', '~> 3.0'
 
