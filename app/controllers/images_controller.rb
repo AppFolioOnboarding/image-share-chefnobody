@@ -13,6 +13,11 @@ class ImagesController < ApplicationController
   def create
     @image = Image.new
     @image.url = image_params[:url]
+
+    if !image_params[:tag_list].nil?
+      @image.tag_list = image_params[:tag_list].split(',').map(&:strip)
+    end
+
     if @image.save
       # success redirect
       redirect_to image_path(@image)
@@ -27,6 +32,6 @@ class ImagesController < ApplicationController
 
   private
     def image_params
-      params.require(:image).permit(:url)
+      params.require(:image).permit(:url, :tag_list)
     end
 end

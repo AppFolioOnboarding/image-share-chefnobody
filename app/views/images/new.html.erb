@@ -2,6 +2,7 @@
 
 <%= simple_form_for @image do |f| %>
     <%= f.input :url %>
+    <%= f.input :tag_list, label: 'Tags - A comma delimited list of words for example: pizza, cheese, dough, pepperoni' %>
     <%= f.button :submit %>
 <% end %>
 

@@ -1,9 +1,13 @@
 <h1>Images</h1>
 
+<%= link_to 'New Image', new_image_path %>
+<hr />
+
 <% @images.each do |i| %>
     <div>
         <img src="<%= i.url %>" />
+        <p class="js-image-tags"><b>Tags:</b> <%= i.tag_list.join(', ') %></p>
     </div>
 <% end %>
 
-<%= link_to 'New Image', new_image_path %>
+
