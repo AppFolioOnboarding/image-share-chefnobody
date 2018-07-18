@@ -8,7 +8,7 @@
 
 [
     'https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg',
-    'https://img.huffingtonpost.com/asset/58b9c7d61900003300bd6a4d.jpeghttps://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/2560px-Pizza-3007395.jpg',
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/2560px-Pizza-3007395.jpg',
     'https://31p86334w2bvkz0249eyr0cr-wpengine.netdna-ssl.com/wp-content/uploads/2014/12/best-chicago-style-pizza-recipe-3.jpg',
     'http://cookdiary.net/wp-content/uploads/images/Chicago-Style-Pizza_5965.jpg',
     'https://cdn.nexternal.com/cincyfav3/images/larosas_cheese_pizzas.jpg',
