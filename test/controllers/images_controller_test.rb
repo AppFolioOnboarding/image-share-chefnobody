@@ -3,10 +3,10 @@ require 'test_helper'
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @image_data = [
-      { url: 'http://www.pizza.com/image1.jpg', tag_list: ['1', '2', '3'] },
-      { url: 'http://www.pizza.com/image2.jpg', tag_list: ['4', '5', '6'] },
-      { url: 'http://www.pizza.com/image3.jpg', tag_list: ['7', '8', '9'] },
-      { url: 'http://www.pizza.com/image4.jpg', tag_list: ['10', '11'] }
+      { url: 'http://www.pizza.com/image1.jpg', tag_list: ['p', 'z', 'a'] },
+      { url: 'http://www.pizza.com/image2.jpg', tag_list: ['p', 'z', 'l'] },
+      { url: 'http://www.pizza.com/image3.jpg', tag_list: ['i', 'l', 'c'] },
+      { url: 'http://www.pizza.com/image4.jpg', tag_list: ['p', 'c'] }
     ].map { |d| 
       Image.create!(url: d[:url], tag_list: d[:tag_list]) 
     }
@@ -20,23 +20,35 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show index page with images' do
-    
     get images_path
 
-    assert_select 'div img' do |images|
+    assert_select '.js-image-card img' do |images|
       assert_equal images.map { |i| i[:src] }, @image_data.reverse.map(&:url)
     end
-
   end
 
   test 'should show index page with tags for images' do
-
     get images_path
 
-    assert_select 'div .js-image-tags' do |tags|
-      assert_equal tags.map(&:text), @image_data.reverse.map { |d| tag_list_text(d[:tag_list]) }
-    end
+    @image_data.each { |image| 
+      # grab tags specific to this image by id
+      assert_select ".js-image-#{image.id}-tag" do |tags|
+        assert_equal tag_paths_for_image(image), tags.map { |a| a[:href] }
+        assert_equal image.tag_list, tags.map(&:text)
+      end
+    }
+  end
 
+  test 'should show correctly ordered and results when filter param exists' do
+    get images_path, params: { tag: 'p' }
+
+    assert_select '.js-image-tags', 3
+
+    expected_order = ['http://www.pizza.com/image4.jpg', 'http://www.pizza.com/image2.jpg', 'http://www.pizza.com/image1.jpg']
+    
+    assert_select '.js-image-card img' do |img|
+      assert_equal expected_order, img.map { |i| i[:src] }
+    end
   end
 
   test 'should get new Image form page' do
@@ -81,12 +93,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       assert_select '[src=?]', image.url
     end
 
-    assert_select '.js-image-tags', text: tag_list_text(image.tag_list)
+    assert_select '.js-image-tags a' do |a|
+      assert_equal a.map { |a| a[:href] }, tag_paths_for_image(image)
+    end
   end
 
   private 
 
-  def tag_list_text(tag_list = [])
-    "Tags: #{tag_list.join(', ')}"
+  def tag_paths_for_image(image = Image.new)
+    image[:tag_list].map { |t| images_path(tag: t) }
   end
 end

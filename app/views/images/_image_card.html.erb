@@ -1,2 +1,4 @@
-<img src="<%= image.url %>" />
-<p class="js-image-tags"><b>Tags:</b> <%= image.tag_list.join(', ') %></p>
+<div class="js-image-card">
+    <img src="<%= image.url %>" />
+    <%= render partial: "tag_list", locals: { tag_list: image.tag_list, image_id: image.id } %>
+</div>

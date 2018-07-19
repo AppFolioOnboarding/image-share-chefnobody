@@ -4,9 +4,7 @@
 <hr />
 
 <% @images.each do |i| %>
-    <div>
-        <%= render partial: "image_card", locals: { image: i } %>
-    </div>
+    <%= render partial: "image_card", locals: { image: i } %>
 <% end %>
 
 

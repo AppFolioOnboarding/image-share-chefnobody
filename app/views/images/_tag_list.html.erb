@@ -1,0 +1,8 @@
+<p>
+    <b>Tags:</b> 
+    <span class="js-image-tags">
+        <% tag_list.map do |t| %> 
+        <%= link_to t, images_path(tag: t), { class: "js-image-#{image_id}-tag" } %>
+        <% end %>
+    </span>
+</p>
