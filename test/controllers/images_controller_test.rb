@@ -20,31 +20,29 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should show index page with images' do
-    
     get images_path
 
-    assert_select 'div img' do |images|
+    assert_select '.js-image-card img' do |images|
       assert_equal images.map { |i| i[:src] }, @image_data.reverse.map(&:url)
     end
-
   end
 
   test 'should show index page with tags for images' do
-
     get images_path
 
-    expected_tag_paths = @image_data.reverse.flat_map { |i| tag_paths_for_image(i) }
-
-    assert_select 'div .js-image-tags a' do |a|
-      assert_equal a.map { |a| a[:href] }, expected_tag_paths
-    end
-
+    @image_data.each { |image| 
+      # grab tags specific to this image by id
+      assert_select ".js-image-#{image.id}-tag" do |tags|
+        assert_equal tag_paths_for_image(image), tags.map { |a| a[:href] }
+        assert_equal image.tag_list, tags.map(&:text)
+      end
+    }
   end
 
   test 'should show filtered index page results when filter param exists' do
     get images_path, params: { tag: 'p' }
 
-    assert_select 'div .js-image-tags', 3
+    assert_select '.js-image-tags', 3
   end
 
   test 'should get new Image form page' do
@@ -97,6 +95,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   private 
 
   def tag_paths_for_image(image = Image.new)
-    image[:tag_list].map { |t| "/?tag=#{t}" }
+    image[:tag_list].map { |t| "/images?tag=#{t}" }
   end
 end
