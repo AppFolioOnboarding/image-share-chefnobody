@@ -101,6 +101,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   private 
 
   def tag_paths_for_image(image = Image.new)
-    image[:tag_list].map { |t| "/images?tag=#{t}" }
+    image[:tag_list].map { |t| images_path(tag: t) }
   end
 end
