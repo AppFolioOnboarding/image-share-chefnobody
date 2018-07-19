@@ -96,10 +96,6 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   private 
 
-  def tag_list_text(tag_list = [])
-    "Tags: #{tag_list.join(' ')}"
-  end
-
   def tag_paths_for_image(image = Image.new)
     image[:tag_list].map { |t| "/?tag=#{t}" }
   end
