@@ -1,2 +1,2 @@
 <h1>Here is your image:</h1>
-<img src="<%= @image.url %>" />
+<%= render partial: "image_card", locals: { image: @image } %>

@@ -10,4 +10,9 @@ class ImageTest < ActiveSupport::TestCase
     image = Image.create(url: nil)
     assert_equal ["can't be blank", 'is not a valid URL'], image.errors[:url]
   end
+
+  test 'Image creation succeeds when tags are present' do
+    image = Image.create(url: 'http://www.pizzahut.com', tag_list: ['cheesy', 'pepperoni-y', 'salty'])
+    assert_equal ['cheesy', 'pepperoni-y', 'salty'], image.tag_list
+  end
 end

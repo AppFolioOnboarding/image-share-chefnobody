@@ -1,9 +1,12 @@
 <h1>Images</h1>
 
+<%= link_to 'New Image', new_image_path %>
+<hr />
+
 <% @images.each do |i| %>
     <div>
-        <img src="<%= i.url %>" />
+        <%= render partial: "image_card", locals: { image: i } %>
     </div>
 <% end %>
 
-<%= link_to 'New Image', new_image_path %>
+
