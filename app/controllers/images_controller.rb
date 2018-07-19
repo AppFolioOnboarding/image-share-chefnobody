@@ -5,8 +5,10 @@ class ImagesController < ApplicationController
     if !params[:tag].nil?
       @images = Image.tagged_with([params[:tag]], any: true)
     else
-      @images = Image.order(created_at: :desc)
+      @images = Image.all
     end
+
+    @images = @images.order(created_at: :desc)
   end
 
   # GET /images/new

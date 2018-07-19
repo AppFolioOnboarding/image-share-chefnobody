@@ -39,10 +39,16 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     }
   end
 
-  test 'should show filtered index page results when filter param exists' do
+  test 'should show correctly ordered and results when filter param exists' do
     get images_path, params: { tag: 'p' }
 
     assert_select '.js-image-tags', 3
+
+    expected_order = ['http://www.pizza.com/image4.jpg', 'http://www.pizza.com/image2.jpg', 'http://www.pizza.com/image1.jpg']
+    
+    assert_select '.js-image-card img' do |img|
+      assert_equal expected_order, img.map { |i| i[:src] }
+    end
   end
 
   test 'should get new Image form page' do
