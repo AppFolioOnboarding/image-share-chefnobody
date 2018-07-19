@@ -11,12 +11,7 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @image = Image.new
-    @image.url = image_params[:url]
-
-    if !image_params[:tag_list].nil?
-      @image.tag_list = image_params[:tag_list]
-    end
+    @image = Image.new(image_params)
 
     if @image.save
       # success redirect

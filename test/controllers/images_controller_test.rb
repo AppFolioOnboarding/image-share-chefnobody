@@ -84,10 +84,9 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_select '.js-image-tags', text: tag_list_text(image.tag_list)
   end
 
-
   private 
 
-    def tag_list_text(tag_list = [])
-      "Tags: #{tag_list.join(', ')}"
-    end
+  def tag_list_text(tag_list = [])
+    "Tags: #{tag_list.join(', ')}"
+  end
 end
