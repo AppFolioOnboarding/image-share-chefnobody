@@ -3,10 +3,10 @@ require 'test_helper'
 class ImagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @image_data = [
-      { url: 'http://www.pizza.com/image1.jpg', tag_list: ['1', '2', '3'] },
-      { url: 'http://www.pizza.com/image2.jpg', tag_list: ['4', '5', '6'] },
-      { url: 'http://www.pizza.com/image3.jpg', tag_list: ['7', '8', '9'] },
-      { url: 'http://www.pizza.com/image4.jpg', tag_list: ['10', '11'] }
+      { url: 'http://www.pizza.com/image1.jpg', tag_list: ['p', 'z', 'a'] },
+      { url: 'http://www.pizza.com/image2.jpg', tag_list: ['p', 'z', 'l'] },
+      { url: 'http://www.pizza.com/image3.jpg', tag_list: ['i', 'l', 'c'] },
+      { url: 'http://www.pizza.com/image4.jpg', tag_list: ['p', 'c'] }
     ].map { |d| 
       Image.create!(url: d[:url], tag_list: d[:tag_list]) 
     }
@@ -39,6 +39,12 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       assert_equal a.map { |a| a[:href] }, expected_tag_paths
     end
 
+  end
+
+  test 'should show filtered index page results when filter param exists' do
+    get images_path, params: { tag: 'p' }
+
+    assert_select 'div .js-image-tags', 3
   end
 
   test 'should get new Image form page' do

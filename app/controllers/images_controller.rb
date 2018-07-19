@@ -2,7 +2,11 @@ class ImagesController < ApplicationController
 
   # GET /images
   def index
-    @images = Image.order(created_at: :desc)
+    if !params[:tag].nil?
+      @images = Image.tagged_with([params[:tag]], any: true)
+    else
+      @images = Image.order(created_at: :desc)
+    end
   end
 
   # GET /images/new
