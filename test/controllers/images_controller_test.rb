@@ -33,8 +33,10 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
     get images_path
 
-    assert_select 'div .js-image-tags' do |tags|
-      assert_equal tags.map(&:text), @image_data.reverse.map { |d| tag_list_text(d[:tag_list]) }
+    expected_tag_paths = @image_data.reverse.flat_map { |i| tag_paths_for_image(i) }
+
+    assert_select 'div .js-image-tags a' do |a|
+      assert_equal a.map { |a| a[:href] }, expected_tag_paths
     end
 
   end
@@ -81,12 +83,18 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
       assert_select '[src=?]', image.url
     end
 
-    assert_select '.js-image-tags', text: tag_list_text(image.tag_list)
+    assert_select '.js-image-tags a' do |a|
+      assert_equal a.map { |a| a[:href] }, tag_paths_for_image(image)
+    end
   end
 
   private 
 
   def tag_list_text(tag_list = [])
-    "Tags: #{tag_list.join(', ')}"
+    "Tags: #{tag_list.join(' ')}"
+  end
+
+  def tag_paths_for_image(image = Image.new)
+    image[:tag_list].map { |t| "/?tag=#{t}" }
   end
 end
