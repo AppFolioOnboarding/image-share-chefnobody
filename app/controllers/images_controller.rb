@@ -15,7 +15,7 @@ class ImagesController < ApplicationController
     @image.url = image_params[:url]
 
     if !image_params[:tag_list].nil?
-      @image.tag_list = image_params[:tag_list].split(',').map(&:strip)
+      @image.tag_list = image_params[:tag_list]
     end
 
     if @image.save
