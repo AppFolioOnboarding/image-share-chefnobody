@@ -46,15 +46,10 @@ GEM
       activerecord (~> 5.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-<<<<<<< HEAD
+    ae_page_objects (4.1.0)
+      capybara (~> 3.0)
     arel (9.0.0)
     ast (2.4.0)
-=======
-    ae_page_objects (3.1.1)
-      capybara (~> 2.1)
-    arel (8.0.0)
-    ast (2.3.0)
->>>>>>> d37d9be... Add ae_page_objects
     bindex (0.5.0)
     builder (3.2.3)
     byebug (10.0.2)
