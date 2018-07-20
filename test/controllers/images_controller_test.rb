@@ -39,6 +39,12 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     }
   end
 
+  test 'should show index page with images and delete button form' do
+    get images_path
+
+    assert_select '.js-image-card form', 4
+  end
+
   test 'should show correctly ordered and results when filter param exists' do
     get images_path, params: { tag: 'p' }
 
