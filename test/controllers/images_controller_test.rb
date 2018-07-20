@@ -104,6 +104,17 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test 'should delete image' do
+    image = Image.last
+
+    assert_difference 'Image.count', -1 do
+      delete image_path(id: image.id)
+    end
+
+    assert_redirected_to images_path
+  end
+
+
   private 
 
   def tag_paths_for_image(image = Image.new)
