@@ -3,8 +3,9 @@
 <%= link_to 'New Image', new_image_path %>
 <hr />
 
-<% @images.each do |i| %>
-    <%= render partial: "image_card", locals: { image: i } %>
-<% end %>
-
+<div class='js-image-collection'>
+    <% @images.each do |i| %>
+        <%= render partial: "image_card", locals: { image: i } %>
+    <% end %>
+</div>
 

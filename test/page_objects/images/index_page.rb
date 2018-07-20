@@ -3,9 +3,13 @@ module PageObjects
     class IndexPage < PageObjects::Document
       path :images
 
-      collection :images, locator: '#TODO', item_locator: '#TODO', contains: ImageCard do
+      collection :images, 
+      locator: '.js-image-collection', 
+      item_locator: '.js-image-card', 
+      contains: ImageCard do
         def view!
           #TODO
+          puts "what's on the view, eh?"
         end
       end
 

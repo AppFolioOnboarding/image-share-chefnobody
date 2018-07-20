@@ -5,12 +5,14 @@ class ImagesCrudTest < FlowTestCase
     images_index_page = PageObjects::Images::IndexPage.visit
 
     new_image_page = images_index_page.add_new_image!
-
+    
     tags = %w(foo bar)
+
     new_image_page = new_image_page.create_image!(
       url: 'invalid',
       tags: tags.join(', ')
     ).as_a(PageObjects::Images::NewPage)
+
     assert_equal 'must be a valid URL', new_image_page.url.error_message
 
     image_url = 'https://media3.giphy.com/media/EldfH1VJdbrwY/200.gif'
